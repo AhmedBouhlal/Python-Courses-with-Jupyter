@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Iris Predictor</title>
+  <style>
+    body { font-family: sans-serif; padding: 30px; background: #f5f5f5; }
+    .box { background: white; padding: 20px; max-width: 400px; margin: auto; border-radius: 10px; }
+    input { margin: 5px; padding: 8px; width: 80%; }
+    button { margin-top: 10px; padding: 10px; width: 100%; }
+    #result { margin-top: 20px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2>🌸 Iris Class Predictor</h2>
+    <input type="number" placeholder="Sepal Length" id="f1"><br>
+    <input type="number" placeholder="Sepal Width" id="f2"><br>
+    <input type="number" placeholder="Petal Length" id="f3"><br>
+    <input type="number" placeholder="Petal Width" id="f4"><br>
+    <button onclick="predict()">Predict</button>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    async function predict() {
+      const features = [
+        parseFloat(document.getElementById("f1").value),
+        parseFloat(document.getElementById("f2").value),
+        parseFloat(document.getElementById("f3").value),
+        parseFloat(document.getElementById("f4").value)
+      ];
+
+      const response = await fetch("/api/predict", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ features })
+      });
+
+      const data = await response.json();
+      document.getElementById("result").innerText = "Prediction: " + data.prediction;
+    }
+  </script>
+</body>
+</html>

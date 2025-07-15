@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flask Welcome Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="box">
+        {% if name %}
+            <h2>✅ Hello, {{ name }}!</h2>
+            <a href="/">⏪ Try again</a>
+        {% else %}
+            <h2>💬 What's your name?</h2>
+            <form method="POST">
+                <input name="name" placeholder="Enter your name" required>
+                <input type="submit" value="Say Hello">
+            </form>
+        {% endif %}
+    </div>
+</body>
+</html>
